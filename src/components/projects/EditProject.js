@@ -17,7 +17,7 @@ class EditProject extends Component {
     const title = this.state.title;
     const description = this.state.description;
  
-    axios.put(`http://localhost:5001/api/projects/${this.props.theProject._id}`, { title, description })
+    axios.put(`http://localhost:5000/api/projects/${this.props.theProject._id}`, { title, description })
     .then( () => {
         this.props.history.push('/projects');    
     }, error => {

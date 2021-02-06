@@ -15,7 +15,7 @@ class ProjectDetails extends Component {
 
     componentDidMount() {
         const params = this.props.match.params;
-        axios.get(`http://localhost:5001/api/projects/${params.id}`)
+        axios.get(`http://localhost:5000/api/projects/${params.id}`)
             .then(responseFromApi => {
                 const { title, description, _id } = responseFromApi.data;
                 this.setState({
@@ -31,7 +31,7 @@ class ProjectDetails extends Component {
 
     deleteProject = () => {
         const { params } = this.props.match;
-        axios.delete(`http://localhost:5001/api/projects/${params.id}`)
+        axios.delete(`http://localhost:5000/api/projects/${params.id}`)
             .then(() => {
                 this.props.history.push('/projects');
             }, err => {

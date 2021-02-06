@@ -14,13 +14,7 @@ class ProjectDetails extends Component {
     }
 
     componentDidMount() {
-        this.getSingleProject();
-    }
-
-    getSingleProject = () => {
-
         const params = this.props.match.params;
-
         axios.get(`http://localhost:5001/api/projects/${params.id}`)
             .then(responseFromApi => {
                 const { title, description, _id } = responseFromApi.data;
@@ -31,22 +25,15 @@ class ProjectDetails extends Component {
                 });
             }, err => {
                 console.log(err)
-            })
+            });
     }
 
-    renderEditForm = () => {
-        if (!this.state.title) {
-            this.getSingleProject();
-        } else {
-            return <EditProject theProject={this.state} {...this.props} />
-        }
-    }
 
     deleteProject = () => {
         const { params } = this.props.match;
         axios.delete(`http://localhost:5001/api/projects/${params.id}`)
             .then(() => {
-                this.props.history.push('/projects');  
+                this.props.history.push('/projects');
             }, err => {
                 console.log(err)
             })
@@ -57,7 +44,13 @@ class ProjectDetails extends Component {
             <div>
                 <h1>{this.state.title}</h1>
                 <p>{this.state.description}</p>
-                <div>{this.renderEditForm()} </div>
+                <div>
+                    {
+                        this.state.title === "" ?
+                            null :
+                            <EditProject theProject={this.state} {...this.props} />
+                    }
+                </div>
                 <button onClick={() => this.deleteProject()}>Delete project</button>
                 <Link to={'/projects'}>Back to projects</Link>
             </div>

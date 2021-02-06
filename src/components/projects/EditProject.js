@@ -19,8 +19,6 @@ class EditProject extends Component {
  
     axios.put(`http://localhost:5001/api/projects/${this.props.theProject._id}`, { title, description })
     .then( () => {
-        console.log("that worked")
-        // this.props.getTheProject();
         this.props.history.push('/projects');    
     }, error => {
         console.log(error)

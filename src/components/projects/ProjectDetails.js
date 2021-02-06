@@ -38,7 +38,7 @@ class ProjectDetails extends Component {
         if (!this.state.title) {
             this.getSingleProject();
         } else {
-            return <EditProject theProject={this.state} getTheProject={this.getSingleProject} {...this.props} />
+            return <EditProject theProject={this.state} {...this.props} />
         }
     }
 

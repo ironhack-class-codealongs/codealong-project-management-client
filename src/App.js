@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
+import Login from './components/auth/Login';
 import Signup from './components/auth/Signup';
 import Navbar from './components/navbar/Navbar';
 import ProjectDetails from './components/projects/ProjectDetails';
@@ -25,11 +26,12 @@ class App extends React.Component {
         {
           this.state.loggedInUser ? 
             <h1>Username: {this.state.loggedInUser.username}</h1> :
-            "user not logged in"
+            null
         }
 
         <Switch>
           <Route exact path='/signup' render={() => <Signup getUser={this.getTheUser}/>}/>
+          <Route exact path='/' render={() => <Login getUser={this.getTheUser}/>}/>
           <Route exact path="/projects" component={ProjectList} />
           <Route path="/projects/:id" component={ProjectDetails} />
         </Switch>

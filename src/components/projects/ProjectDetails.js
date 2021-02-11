@@ -9,7 +9,8 @@ class ProjectDetails extends Component {
         super(props);
         this.state = {
             title: "",
-            description: ""
+            description: "",
+            owner: ""
         }
     }
 
@@ -17,11 +18,11 @@ class ProjectDetails extends Component {
         const params = this.props.match.params;
         axios.get(`http://localhost:5090/api/projects/${params.id}`, {withCredentials:true})
             .then(responseFromApi => {
-                const { title, description, _id } = responseFromApi.data;
+                const { title, description, owner } = responseFromApi.data;
                 this.setState({
                     title: title,
                     description: description,
-                    _id: _id
+                    owner: owner
                 });
             }, err => {
                 console.log(err)
@@ -46,12 +47,16 @@ class ProjectDetails extends Component {
                 <p>{this.state.description}</p>
                 <div>
                     {
-                        this.state.title === "" ?
-                            null :
-                            <EditProject theProject={this.state} {...this.props} />
+                        this.state.title !== "" && 
+                        this.props.user && 
+                        this.props.user._id === this.state.owner ?
+                            <div>
+                                <EditProject theProject={this.state} {...this.props} />
+                                <button onClick={() => this.deleteProject()}>Delete project</button>
+                            </div> : 
+                            null 
                     }
                 </div>
-                <button onClick={() => this.deleteProject()}>Delete project</button>
                 <Link to={'/projects'}>Back to projects</Link>
             </div>
         )

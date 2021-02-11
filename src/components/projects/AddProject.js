@@ -11,10 +11,10 @@ class AddProject extends Component {
   handleFormSubmit = (event) => {
     event.preventDefault();
 
-    axios.post('http://localhost:5000/api/projects', {
+    axios.post('http://localhost:5090/api/projects', {
         title: this.state.title,
         description: this.state.description
-    })
+    }, {withCredentials:true})
     .then( (res) => {
         this.props.getData();
         this.setState({

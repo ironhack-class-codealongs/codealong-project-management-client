@@ -21,7 +21,7 @@ class App extends React.Component {
     return (
       <div className="App">
 
-        <Navbar user={this.state.loggedInUser} />
+        <Navbar user={this.state.loggedInUser} getUser={this.getTheUser} />
 
         {
           this.state.loggedInUser ? 

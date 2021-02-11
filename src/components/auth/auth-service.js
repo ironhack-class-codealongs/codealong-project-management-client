@@ -8,6 +8,7 @@ class AuthService {
     });
     this.service = service;
   }
+  
   signup = (username, password) => {
     return this.service.post('/signup', {username, password})
     .then(response => response.data)
@@ -18,6 +19,11 @@ class AuthService {
     .then(response => response.data)
   }
    
+  logout = () => {
+    return this.service.post('/logout', {})
+    .then(response => response.data)
+  }
+
 }
  
 export default AuthService;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import './App.css';
 import Login from './components/auth/Login';
 import Signup from './components/auth/Signup';
@@ -32,8 +32,18 @@ class App extends React.Component {
         <Switch>
           <Route exact path='/signup' render={() => <Signup getUser={this.getTheUser}/>}/>
           <Route exact path='/' render={() => <Login getUser={this.getTheUser}/>}/>
-          <Route exact path="/projects" component={ProjectList} />
-          <Route path="/projects/:id" render={ (props) => <ProjectDetails {...props} user={this.state.loggedInUser} /> } />
+
+          <Route exact path="/projects">
+            { this.state.loggedInUser ? <ProjectList /> : <Redirect to="/" /> }
+          </Route>
+          
+          <Route path="/projects/:id" render={ (props) => {
+            return this.state.loggedInUser ?
+              <ProjectDetails {...props} user={this.state.loggedInUser} /> : 
+              <Redirect to="/" />
+            }} />
+
+
         </Switch>
       </div>
     );

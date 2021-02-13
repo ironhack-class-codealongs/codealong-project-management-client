@@ -19,7 +19,7 @@ class EditProject extends Component {
  
     axios.put(`http://localhost:5090/api/projects/${this.props.theProject._id}`, { title, description }, {withCredentials:true})
     .then( () => {
-        this.props.history.push('/projects');    
+        this.props.history.push('/');    
     }, error => {
         console.log(error)
     })

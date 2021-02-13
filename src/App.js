@@ -24,20 +24,12 @@ class App extends React.Component {
 
         <Navbar user={this.state.loggedInUser} getUser={this.getTheUser} />
 
-        {
-          this.state.loggedInUser ? 
-            <h1>Username: {this.state.loggedInUser.username}</h1> :
-            null
-        }
-
         <Switch>
-          <Route exact path='/signup' render={() => <Signup getUser={this.getTheUser}/>}/>
-          <Route exact path='/' render={() => <Login getUser={this.getTheUser}/>}/>
 
           <ProtectedRoute 
             exact
             user={this.state.loggedInUser} 
-            path='/projects' 
+            path='/' 
             component={ProjectList} 
           />
 
@@ -46,6 +38,10 @@ class App extends React.Component {
             path="/projects/:id"
             component={ProjectDetails}
           />
+
+          <Route exact path='/signup' render={(props) => <Signup {...props} getUser={this.getTheUser}/>}/>
+
+          <Route exact path='/login' render={(props) => <Login {...props} getUser={this.getTheUser}/>}/>
 
         </Switch>
         

@@ -36,7 +36,7 @@ class ProjectDetails extends Component {
         const { params } = this.props.match;
         axios.delete(`http://localhost:5090/api/projects/${params.id}`, {withCredentials:true})
             .then(() => {
-                this.props.history.push('/projects');
+                this.props.history.push('/');
             }, err => {
                 console.log(err)
             })
@@ -59,7 +59,7 @@ class ProjectDetails extends Component {
                             null 
                     }
                 </div>
-                <Link to={'/projects'}>Back to projects</Link>
+                <Link to={'/'}>Back Home</Link>
             </div>
         )
     }

@@ -24,7 +24,6 @@ export default class Navbar extends React.Component {
                         <div>
                             Welcome, {this.props.user.username}
                             <br />
-                            <Link to="/projects"> Projects </Link>
                             <Link to='/'>
                                 <button onClick={() => this.logoutUser()}> Logout </button>
                             </Link>

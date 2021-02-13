@@ -10,6 +10,7 @@ class ProjectDetails extends Component {
         this.state = {
             title: "",
             description: "",
+            _id: "",
             owner: ""
         }
     }
@@ -18,10 +19,11 @@ class ProjectDetails extends Component {
         const params = this.props.match.params;
         axios.get(`http://localhost:5090/api/projects/${params.id}`, {withCredentials:true})
             .then(responseFromApi => {
-                const { title, description, owner } = responseFromApi.data;
+                const { title, description, _id, owner } = responseFromApi.data;
                 this.setState({
                     title: title,
                     description: description,
+                    _id: _id,
                     owner: owner
                 });
             }, err => {

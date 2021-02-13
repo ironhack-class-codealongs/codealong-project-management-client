@@ -3,6 +3,7 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import './App.css';
 import Login from './components/auth/Login';
 import Signup from './components/auth/Signup';
+import ProtectedRoute from './components/auth/protected-route';
 import Navbar from './components/navbar/Navbar';
 import ProjectDetails from './components/projects/ProjectDetails';
 import ProjectList from './components/projects/ProjectList';
@@ -33,18 +34,21 @@ class App extends React.Component {
           <Route exact path='/signup' render={() => <Signup getUser={this.getTheUser}/>}/>
           <Route exact path='/' render={() => <Login getUser={this.getTheUser}/>}/>
 
-          <Route exact path="/projects">
-            { this.state.loggedInUser ? <ProjectList /> : <Redirect to="/" /> }
-          </Route>
-          
-          <Route path="/projects/:id" render={ (props) => {
-            return this.state.loggedInUser ?
-              <ProjectDetails {...props} user={this.state.loggedInUser} /> : 
-              <Redirect to="/" />
-            }} />
+          <ProtectedRoute 
+            exact
+            user={this.state.loggedInUser} 
+            path='/projects' 
+            component={ProjectList} 
+          />
 
+          <ProtectedRoute 
+            user={this.state.loggedInUser} 
+            path="/projects/:id"
+            component={ProjectDetails}
+          />
 
         </Switch>
+        
       </div>
     );
   }

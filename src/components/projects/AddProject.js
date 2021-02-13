@@ -5,7 +5,8 @@ class AddProject extends Component {
   state = { 
       title: "", 
       description: "",
-      status: ""
+      status: "",
+      imageUrl: ""
     }
    
   handleFormSubmit = (event) => {
@@ -13,7 +14,8 @@ class AddProject extends Component {
 
     axios.post('http://localhost:5090/api/projects', {
         title: this.state.title,
-        description: this.state.description
+        description: this.state.description,
+        imageUrl: this.state.imageUrl
     }, {withCredentials:true})
     .then( (res) => {
         this.props.getData();
@@ -28,6 +30,27 @@ class AddProject extends Component {
             status: "Oops, something went wrong"
         });
     });
+  }
+
+  handleFileUpload = (event) => {
+    
+    //console.log("The file to be uploaded is: ", event.target.files[0]);
+
+    const uploadData = new FormData();
+    // imageUrl => this name has to be the same as in the model since we pass
+    // req.body to .create() method when creating a new thing in '/api/projects' POST route
+    uploadData.append("imageUrl", event.target.files[0]);
+
+    axios.post('http://localhost:5090/api/upload', uploadData)
+      .then(response => {
+        // response.image_url --> this must be the same name than the property we receive from the api
+        // if it doesn't work, try to console.log response we get from the api ;)
+        console.log('response from the api: ', response);
+        this.setState({ imageUrl: response.data.image_url });
+      })
+      .catch(err => {
+        console.log("Error while uploading the file: ", err);
+      });
   }
  
   handleChange = (event) => {  
@@ -48,11 +71,14 @@ class AddProject extends Component {
           <label>Description:</label>
           <textarea name="description" value={this.state.description} onChange={ e => this.handleChange(e)} />
           
+          <label>Project Image:</label>
+          <input type="file" onChange={ (e) => this.handleFileUpload(e) } />
+
           <input type="submit" value="Submit" />
         </form>
       </React.Fragment>
     )
   }
 }
- 
+
 export default AddProject;

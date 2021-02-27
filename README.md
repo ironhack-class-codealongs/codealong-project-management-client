@@ -1,3 +1,7 @@
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/604dce46-aeed-4229-b10c-8f7a490bca86/deploy-status)](https://app.netlify.com/sites/m3-deployment-test/deploys)
+
+
 # About
 
 Class codealong: building our REST API + integrating our React App with the backend.

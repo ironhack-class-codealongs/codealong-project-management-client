@@ -11,7 +11,7 @@ class ProjectList extends Component {
     }
 
     getAllProjects = () => {
-        axios.get(`http://localhost:5090/api/projects`, {withCredentials:true})
+        axios.get(`${process.env.REACT_APP_API_URL}/projects`, {withCredentials:true})
             .then(responseFromApi => {
                 this.setState({
                     listOfProjects: responseFromApi.data

@@ -18,7 +18,7 @@ class ProjectDetails extends Component {
 
     componentDidMount() {
         const params = this.props.match.params;
-        axios.get(`http://localhost:5090/api/projects/${params.id}`, {withCredentials:true})
+        axios.get(`${process.env.REACT_APP_API_URL}/projects/${params.id}`, {withCredentials:true})
             .then(responseFromApi => {
                 const { title, description, _id, owner, imageUrl } = responseFromApi.data;
                 this.setState({
@@ -36,7 +36,7 @@ class ProjectDetails extends Component {
 
     deleteProject = () => {
         const { params } = this.props.match;
-        axios.delete(`http://localhost:5090/api/projects/${params.id}`, {withCredentials:true})
+        axios.delete(`${process.env.REACT_APP_API_URL}/projects/${params.id}`, {withCredentials:true})
             .then(() => {
                 this.props.history.push('/');
             }, err => {

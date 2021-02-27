@@ -12,7 +12,7 @@ class AddProject extends Component {
   handleFormSubmit = (event) => {
     event.preventDefault();
 
-    axios.post('http://localhost:5090/api/projects', {
+    axios.post(`${process.env.REACT_APP_API_URL}/projects`, {
         title: this.state.title,
         description: this.state.description,
         imageUrl: this.state.imageUrl
@@ -41,7 +41,7 @@ class AddProject extends Component {
     // req.body to .create() method when creating a new thing in '/api/projects' POST route
     uploadData.append("imageUrl", event.target.files[0]);
 
-    axios.post('http://localhost:5090/api/upload', uploadData)
+    axios.post(`${process.env.REACT_APP_API_URL}/upload`, uploadData)
       .then(response => {
         // response.image_url --> this must be the same name than the property we receive from the api
         // if it doesn't work, try to console.log response we get from the api ;)

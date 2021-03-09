@@ -1,1 +1,10 @@
+# Proxy for API calls 
+# (see https://stackoverflow.com/a/59314882/11298742)
+#
+/api/*  https://m3-deployment-test.herokuapp.com/api/:splat  200
+
+
+# SPA redirects 
+# (https://docs.netlify.com/routing/redirects/rewrites-proxies/#history-pushstate-and-single-page-apps)
+#
 /*  /index.html  200
